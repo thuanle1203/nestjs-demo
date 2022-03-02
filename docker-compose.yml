@@ -7,13 +7,13 @@ services:
     build: .
     environment:
       - APP_ENV=development
-      - APP_PORT=9000
+      - APP_PORT=3000
     volumes:
       - ./src:/var/www/backend/src
       - ./test:/var/www/backend/test
     working_dir: /var/www/backend
     ports:
-      - "9001:9000"
+      - "9001:3000"
     links:
       - mysql
       - redis
