@@ -1,16 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
 
 @Controller('tasks')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) {
-
-  }
+  constructor(private readonly taskService: TaskService) {}
 
   @Get()
   findAll(): Promise<Task[]> {
-    return this.taskService.findAll()
+    return this.taskService.findAll();
   }
 
   @Get(':id')
@@ -33,4 +39,3 @@ export class TaskController {
     return this.taskService.delete(params.id);
   }
 }
-
