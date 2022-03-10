@@ -1,12 +1,12 @@
 import { v2 } from 'cloudinary';
-import { CLOUDINARY } from './constant';
+import { CLOUDINARY } from './constants';
 export const CloudinaryProvider = {
   provide: CLOUDINARY,
   useFactory: (): any => {
     return v2.config({
-      cloud_name: process.env.CLD_CLOUD_NAME,
-      api_key: process.env.CLD_API_KEY,
-      api_secret: process.env.CLD_API_SECRET,
+      cloud_name: 'elnic',
+      api_key: '678984399782641',
+      api_secret: 'LUKd9zCF_WGacbiHjPGnQX0a1eA',
     });
   },
 };
