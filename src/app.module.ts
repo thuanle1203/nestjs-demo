@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { TaskModule } from './task/task.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
+    AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
