@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { from, Observable } from 'rxjs';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Task } from '../models/task.entity';
 
@@ -14,8 +15,8 @@ export class TaskService {
     return await this.taskRepository.find();
   }
 
-  async findOne(id: number): Promise<Task> {
-    return await this.taskRepository.findOne(id);
+  findOne(id: number): Observable<Task> {
+    return from(this.taskRepository.findOne(id));
   }
 
   async create(task: Task): Promise<Task> {

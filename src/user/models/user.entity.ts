@@ -1,16 +1,41 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Task } from 'src/task/models/task.entity';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { UserRole } from './user.interface';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 500 })
+  @Column()
+  name: string;
+
+  @Column({ unique: true })
   username: string;
 
-  @Column('text')
+  @Column({ unique: true })
+  email: string;
+
+  @Column({ select: false })
   password: string;
 
-  @Column('boolean', { default: true })
-  isActive = true;
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+  role: UserRole;
+
+  @Column({ nullable: true })
+  profileImage: string;
+
+  @OneToMany((type) => Task, (task) => task.assignedPerson)
+  task: Task[];
+
+  @BeforeInsert()
+  emailToLowerCase() {
+    this.email = this.email.toLowerCase();
+  }
 }
