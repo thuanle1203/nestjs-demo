@@ -1,6 +1,6 @@
 import { User } from 'src/user/models/user.interface';
 
-export interface BlogEntry {
+export interface Task {
   id?: number;
   title?: string;
   slug?: string;

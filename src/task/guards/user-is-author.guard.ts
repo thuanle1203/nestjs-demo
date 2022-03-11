@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { User } from 'src/user/models/user.interface';
 import { switchMap, map } from 'rxjs/operators';
 import { TaskService } from '../services/task.service';
-import { BlogEntry } from '../models/interfaces/task.inteface';
 import { Task } from '../models/task.entity';
 
 @Injectable()

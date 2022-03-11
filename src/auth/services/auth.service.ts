@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { from, Observable } from 'rxjs';
 import { User } from 'src/user/models/user.entity';
 import { UserService } from 'src/user/services/user.service';
-import bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
 
 @Injectable()
 export class AuthService {

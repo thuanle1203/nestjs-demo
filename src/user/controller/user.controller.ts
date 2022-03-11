@@ -7,10 +7,6 @@ import {
   Delete,
   Put,
   UseGuards,
-  Query,
-  UseInterceptors,
-  UploadedFile,
-  Request,
   Res,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
@@ -20,9 +16,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { v4 as uuidv4 } from 'uuid';
 import path = require('path');
 import { join } from 'path';
 import { UserIsUserGuard } from 'src/auth/guards/userIsUser.guard';
@@ -54,6 +47,11 @@ export class UserController {
     return this.userService.findOne(params.id);
   }
 
+  @Get()
+  findAll(@Param() params): Observable<User[]> {
+    return this.userService.findAll();
+  }
+
   @hasRoles(UserRole.ADMIN)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
@@ -67,8 +65,8 @@ export class UserController {
     return this.userService.updateOne(Number(id), user);
   }
 
-  @hasRoles(UserRole.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @hasRoles(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard)
   @Put(':id/role')
   updateRoleOfUser(
     @Param('id') id: string,

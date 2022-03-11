@@ -15,11 +15,9 @@ export class UserService {
   ) {}
 
   findOne(id: number): Observable<any> {
-    return from(
-      this.userRepository.findOne({ id }, { relations: ['blogEntries'] }),
-    ).pipe(
+    return from(this.userRepository.findOne(id)).pipe(
       map((user: User) => {
-        const { password, ...result } = user;
+        const { ...result } = user;
         return result;
       }),
     );
@@ -52,7 +50,7 @@ export class UserService {
 
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
-            const { password, ...result } = user;
+            const { ...result } = user;
             return result;
           }),
           catchError((err) => throwError(err)),
@@ -76,6 +74,7 @@ export class UserService {
   }
 
   updateRoleOfUser(id: number, user: User): Observable<any> {
+    user.role = UserRole.ADMIN;
     return from(this.userRepository.update(id, user));
   }
 
@@ -114,7 +113,7 @@ export class UserService {
         this.authService.comparePasswords(password, user.password).pipe(
           map((match: boolean) => {
             if (match) {
-              const { password, ...result } = user;
+              const { ...result } = user;
               return result;
             } else {
               throw Error;
